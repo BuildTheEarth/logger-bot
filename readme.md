@@ -6,12 +6,13 @@
 # Logger Bot
 
 _The message logger for the BuildTheEarth Discord server._
+
 </div>
 <!-- markdownlint-restore -->
 
-- [Bot](#Bot)
-- [BuildTheEarth](#BuildTheEarth)
-- [License](#License)
+-   [Bot](#Bot)
+-   [BuildTheEarth](#BuildTheEarth)
+-   [License](#License)
 
 ## Bot
 
@@ -36,7 +37,7 @@ This bot is licensed under the [MIT License](license).
 [discord.js v13]: https://github.com/discordjs/discord.js/releases?q=13
 [typeorm]: https://typeorm.io/
 [docker]: https://www.docker.com/
-[Conventional Commits]: https://www.conventionalcommits.org/en/v1.0.0/
+[conventional commits]: https://www.conventionalcommits.org/en/v1.0.0/
 [pm2]: https://pm2.io/
 [docker]: https://docker.com/
 [prettier]: https://prettier.io/
