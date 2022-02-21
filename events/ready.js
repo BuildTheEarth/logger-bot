@@ -1,7 +1,7 @@
-module.exports = {
+export default {
     name: "ready",
     once: true,
-    execute(client) {
+    execute(unusedClient, client) {
         client.logger.info("Bot is online.")
     }
 }

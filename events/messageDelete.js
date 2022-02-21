@@ -1,5 +1,7 @@
-module.exports = {
+export default {
     name: "messageDelete",
     once: false,
-    execute(client) {}
+    execute(message, client) {
+        client.logger.info("lol")
+    }
 }

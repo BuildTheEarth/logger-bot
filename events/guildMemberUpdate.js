@@ -1,5 +1,7 @@
-module.exports = {
+export default {
     name: "guildMemberUpdate",
     once: false,
-    execute(client) {}
+    execute(oldMember, newMember, client) {
+        client.logger.info("lol")
+    }
 }

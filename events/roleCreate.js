@@ -1,5 +1,7 @@
-module.exports = {
+export default {
     name: "roleCreate",
     once: false,
-    execute(client) {}
+    execute(role, client) {
+        client.logger.info("lol")
+    }
 }
