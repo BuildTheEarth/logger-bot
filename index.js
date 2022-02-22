@@ -1,9 +1,9 @@
 import createLogger from "@buildtheearth/bot-logger"
 import { Client, Intents } from "discord.js"
 import fs from "fs"
-import config from "./config/config.json"
 import eventEnabled from "./util/eventEnabled.js"
-const logger = createLogger({ filePath: "./logs/" })
+import config from "./config/config.json"
+import log from "./util/log.js"
 const client = new Client({
     intents: [
         Intents.FLAGS.GUILDS,
@@ -13,8 +13,9 @@ const client = new Client({
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS
     ]
 })
+client.log = log
 client.config = config
-client.logger = logger
+client.logger = createLogger({ filePath: "./logs/" })
 client.logger.info("Starting bot... Please stand by.")
 
 async function main() {
@@ -22,14 +23,16 @@ async function main() {
 
     for (const file of eventFiles) {
         const event = await import(`./events/${file}`)
-        if (event.default.once) {
-            client.once(event.default.name, (...args) =>
-                event.default.execute(...args, client)
-            )
-        } else {
-            client.on(event.default.name, (...args) =>
-                event.default.execute(...args, client)
-            )
+        if (eventEnabled(event.default.name, client)) {
+            if (event.default.once) {
+                client.once(event.default.name, (...args) =>
+                    event.default.execute(...args, client)
+                )
+            } else {
+                client.on(event.default.name, (...args) =>
+                    event.default.execute(...args, client)
+                )
+            }
         }
     }
 }
