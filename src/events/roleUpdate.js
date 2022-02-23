@@ -1,8 +1,7 @@
 export default {
     name: "roleUpdate",
     once: false,
-    execute(oldRole, newRole, client) {
-        client.logger.info("lol")
-        //log what has changed about the role. (same as guildMemberUpdate)
+    async execute(oldRole, newRole, client) {
+        //make this a diff of the old role and the new role
     }
 }

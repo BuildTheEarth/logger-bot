@@ -1,8 +1,10 @@
+import roleEmbed from "../util/roleEmbed.js"
+
 export default {
     name: "roleDelete",
     once: false,
-    execute(role, client) {
-        client.logger.info("lol")
-        //sane as roleCreate but for removal
+    async execute(role, client) {
+        const embed = await roleEmbed(role, "Delete", client)
+        await client.log({ embeds: [embed] }, "mainLog", client)
     }
 }
