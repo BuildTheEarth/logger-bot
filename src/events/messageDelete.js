@@ -49,8 +49,9 @@ export default {
                 text: `Message ID: ${message.id}`
             }
         }
-        const content = { embeds: [embed] }
-        const messageLog = await client.log(content, "messageLog", client)
+
+        const messageLog = await client.log({ embeds: [embed] }, "messageLog", client)
+
         if (files.length > 0) {
             for await (const file of files) {
                 const contentEmbed = {
@@ -60,7 +61,7 @@ export default {
                     embeds: [
                         {
                             color: client.hexToRGB(client.config.colors.messages.delete),
-                            title: "New deleted attachment",
+                            title: "New Deleted Attachment",
                             url: `https://discordapp.com/channels/${messageLog.guild.id}/${messageLog.channelId}/${messageLog.id}`,
                             image: {
                                 url: `attachment://deleted_message.${file.name}`
