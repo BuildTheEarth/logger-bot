@@ -50,7 +50,7 @@ export default function embed(role, type, client) {
             }
         ],
         footer: {
-            text: `Role ID: ${role.id} • Created on`
+            text: `Role ID: ${role.id}`
         },
         timestamp: role.createdAt
     }
