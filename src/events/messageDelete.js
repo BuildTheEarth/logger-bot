@@ -1,30 +1,36 @@
 import fetch from "node-fetch"
-import mime from "mime-types"
 
 export default {
     name: "messageDelete",
     once: false,
     async execute(message, client) {
+        //if the message has an attachment write the file to a buffer
         let files = []
+        let content = { files: [], embeds: [] }
         if (message.attachments.size > 0) {
             let urls = []
             message.attachments.forEach(attachment =>
                 urls.push({
                     url: attachment.proxyURL,
-                    contentType: attachment.contentType
+                    name: attachment.name
                 })
             )
             for (let i = 0; i < urls.length; i++) {
                 let img = await fetch(urls[i].url)
                 let imgBuffer = Buffer.from(await img.arrayBuffer())
-                files.push({ file: imgBuffer, name: mime.extension(urls[i].contentType) })
+                files.push({
+                    file: imgBuffer,
+                    name: urls[i].name,
+                    extension: urls[i].name.match(/\.[0-9a-z]+$/i)[0]
+                })
+                console.log(files)
             }
         }
 
         await client.users.fetch(message.author.id)
         const messageAuthor = await client.users.cache.get(message.author.id)
 
-        const embed = {
+        content.embeds.push({
             color: client.hexToRGB(client.config.colors.messages.delete),
             title: "New Deleted Message",
             author: {
@@ -48,32 +54,33 @@ export default {
             footer: {
                 text: `Message ID: ${message.id}`
             }
-        }
-
-        const messageLog = await client.log({ embeds: [embed] }, "messageLog", client)
+        })
 
         if (files.length > 0) {
             for await (const file of files) {
-                const contentEmbed = {
-                    files: [
-                        { attachment: file.file, name: "deleted_message." + file.name }
-                    ],
-                    embeds: [
-                        {
-                            color: client.hexToRGB(client.config.colors.messages.delete),
-                            title: "New Deleted Attachment",
-                            url: `https://discordapp.com/channels/${messageLog.guild.id}/${messageLog.channelId}/${messageLog.id}`,
-                            image: {
-                                url: `attachment://deleted_message.${file.name}`
-                            },
-                            footer: {
-                                text: `Message ID: ${message.id}`
-                            }
+                content.files.push({
+                    attachment: file.file,
+                    name: file.name
+                })
+                if (
+                    file.extension === ".png" ||
+                    file.extension === ".jpg" ||
+                    file.extension === ".jpeg"
+                ) {
+                    content.embeds.push({
+                        color: client.hexToRGB(client.config.colors.messages.delete),
+                        title: "Deleted Attachment",
+                        image: {
+                            url: `attachment://deleted_message.${file.name}`
+                        },
+                        footer: {
+                            text: `Message ID: ${message.id}`
                         }
-                    ]
-                }
-                await client.log(contentEmbed, "messageLog", client)
+                    })
+                } else
+                    content.content = "__Deleted Attachments__\n(May not be valid files)"
             }
         }
+        await client.log(content, "messageLog", client)
     }
 }
