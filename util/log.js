@@ -1,4 +1,8 @@
-export default function log(embed, logType, client) {
-    const logChannel = client.channels.cache.get(client.config.channels[logType])
-    logChannel.send({ embeds: [embed] }).catch(err => client.logger.error(err))
+export default async function log(content, logType, client) {
+    const logChannel = await client.channels.cache.get(client.config.channels[logType])
+    await logChannel.send(content).catch(err => {
+        client.logger.error(err)
+        return "error"
+    })
+    return "success"
 }

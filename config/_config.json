@@ -12,26 +12,26 @@
         "roleCreate": "#62D18A",
         "roleDelete": "#EB4364",
         "roleUpdate": "#4B53EB",
-        "messages": [
-            { "edit": "#E5B823" },
-            { "delete": "#ED5439" },
-            { "bulkDelete": "#EB4364" },
-            { "reactionAdd": "#62D18A" },
-            { "reactionRemove": "#D25424" }
-        ]
+        "messages": {
+            "edit": "#E5B823",
+            "delete": "#ED5439",
+            "bulkDelete": "#EB4364",
+            "reactionAdd": "#62D18A",
+            "reactionRemove": "#D25424"
+        }
     },
-    "events": [
-        { "name": "guildMemberAdd", "enabled": true },
-        { "name": "guildMemberRemove", "enabled": true },
-        { "name": "guildMemberUpdate", "enabled": true },
-        { "name": "messageDelete", "enabled": true },
-        { "name": "messageDeleteBulk", "enabled": true },
-        { "name": "messageReactionAdd", "enabled": true },
-        { "name": "messageReactionDelete", "enabled": true },
-        { "name": "messageUpdate", "enabled": true },
-        { "name": "ready", "enabled": true },
-        { "name": "roleCreate", "enabled": true },
-        { "name": "roleDelete", "enabled": true },
-        { "name": "roleUpdate", "enabled": true }
-    ]
+    "events": {
+        "guildMemberAdd": true,
+        "guildMemberRemove": true,
+        "guildMemberUpdate": true,
+        "messageDelete": true,
+        "messageDeleteBulk": true,
+        "messageReactionAdd": true,
+        "messageReactionDelete": true,
+        "messageUpdate": true,
+        "ready": true,
+        "roleCreate": true,
+        "roleDelete": true,
+        "roleUpdate": true
+    }
 }
