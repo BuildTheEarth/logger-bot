@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node --experimental-json-modules index.js"
+        "start": "node --experimental-json-modules src/index.js"
     },
     "repository": {
         "type": "git",
@@ -25,6 +25,7 @@
     "dependencies": {
         "@buildtheearth/bot-logger": "^1.0.3",
         "discord.js": "^13.6.0",
+        "mime-types": "^2.1.34",
         "node-fetch": "^2.6.7",
         "prettier-eslint": "^13.0.0"
     },
