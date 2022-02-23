@@ -21,17 +21,17 @@
         }
     },
     "events": {
-        "guildMemberAdd": true,
-        "guildMemberRemove": true,
-        "guildMemberUpdate": true,
+        "guildMemberAdd": false,
+        "guildMemberRemove": false,
+        "guildMemberUpdate": false,
         "messageDelete": true,
-        "messageDeleteBulk": true,
-        "messageReactionAdd": true,
-        "messageReactionDelete": true,
+        "messageDeleteBulk": false,
+        "messageReactionAdd": false,
+        "messageReactionDelete": false,
         "messageUpdate": true,
         "ready": true,
         "roleCreate": true,
         "roleDelete": true,
-        "roleUpdate": true
+        "roleUpdate": false
     }
 }
