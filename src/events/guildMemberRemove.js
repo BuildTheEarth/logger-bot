@@ -1,8 +1,11 @@
+import memberEmbed from "../util/memberEmbed.js"
+
 export default {
     name: "guildMemberRemove",
     once: false,
-    execute(member, client) {
-        client.logger.info("lol")
-        //same as member join but config.color.leave
+    async execute(member, client) {
+        console.log(member.partial)
+        const embed = await memberEmbed(member, "Remove", client)
+        client.log({ embeds: [embed] }, "mainLog", client)
     }
 }

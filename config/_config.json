@@ -15,9 +15,7 @@
         "messages": {
             "edit": "#E5B823",
             "delete": "#ED5439",
-            "bulkDelete": "#EB4364",
-            "reactionAdd": "#62D18A",
-            "reactionRemove": "#D25424"
+            "bulkDelete": "#EB4364"
         }
     },
     "events": {
@@ -26,8 +24,6 @@
         "guildMemberUpdate": false,
         "messageDelete": true,
         "messageDeleteBulk": false,
-        "messageReactionAdd": false,
-        "messageReactionDelete": false,
         "messageUpdate": true,
         "ready": true,
         "roleCreate": true,

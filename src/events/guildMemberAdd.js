@@ -1,8 +1,11 @@
+import memberEmbed from "../util/memberEmbed.js"
+
 export default {
     name: "guildMemberAdd",
     once: false,
-    execute(member, client) {
-        client.logger.info("lol")
-        //when member joins the server send an embed using config.color.join and include user details like name, id, discriminator, avatar, time/date, account creation date, member count, etc.
+    async execute(member, client) {
+        console.log(member.partial)
+        const embed = await memberEmbed(member, "Add", client)
+        client.log({ embeds: [embed] }, "mainLog", client)
     }
 }

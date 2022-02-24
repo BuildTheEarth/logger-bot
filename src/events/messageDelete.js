@@ -4,6 +4,8 @@ export default {
     name: "messageDelete",
     once: false,
     async execute(message, client) {
+        //!does not fetch old messages
+
         //if the message has an attachment write the file to a buffer
         let files = []
         let content = { files: [], embeds: [] }
@@ -27,7 +29,7 @@ export default {
             }
         }
 
-        await client.users.fetch(message.author.id)
+        await client.users.fetch(message.author.id).catch(err => null)
         const messageAuthor = await client.users.cache.get(message.author.id)
 
         content.embeds.push({
