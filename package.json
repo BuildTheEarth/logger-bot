@@ -1,6 +1,6 @@
 {
     "name": "logger-bot",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "A message logging bot designed with simplicity and reliability",
     "main": "src/index.js",
     "scripts": {
