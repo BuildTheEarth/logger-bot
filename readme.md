@@ -6,6 +6,8 @@
 # Logger Bot
 
 _The message logger for the BuildTheEarth Discord server._
+  
+![official](https://go.buildtheearth.net/official-shield)
 
 </div>
 <!-- markdownlint-restore -->
