@@ -1,5 +1,5 @@
 {
-    "prefix": "",
+    "prefix": "$$",
     "token": "",
     "channels": {
         "messageLog": "",
@@ -19,9 +19,10 @@
         }
     },
     "events": {
-        "guildMemberAdd": false,
-        "guildMemberRemove": false,
+        "guildMemberAdd": true,
+        "guildMemberRemove": true,
         "guildMemberUpdate": false,
+        "messageCreate": true,
         "messageDelete": true,
         "messageDeleteBulk": false,
         "messageUpdate": true,
