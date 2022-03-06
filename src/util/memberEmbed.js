@@ -1,6 +1,6 @@
 import Discord from "discord.js"
-import humanizeConstant from "./humanizeConstant.js"
-import formatTimestamp from "./formatTimestamp.js"
+import { humanizeConstant }  from "@buildtheearth/bot-utils"
+import { formatTimestamp }  from "@buildtheearth/bot-utils"
 import userFlags from "../../config/extensions/userFlags.json" assert { type: "json" }
 
 export default function embed(member, type, client) {

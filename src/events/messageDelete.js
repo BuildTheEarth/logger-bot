@@ -1,12 +1,20 @@
+import { noop } from "@buildtheearth/bot-utils"
 import fetch from "node-fetch"
 
 export default {
     name: "messageDelete",
     once: false,
     async execute(message, client) {
-        //!does not fetch old messages
-
         //if the message has an attachment write the file to a buffer
+        let messageLDB = undefined
+        try {
+            messageLDB = JSON.parse(await client.db.get(message.id))
+        } catch (e) {
+            console.log(e)
+        }
+        if ( message.partial && !messageLDB) return
+        message.content = messageLDB.content
+        message.author = {id: messageLDB.user}
         let files = []
         let content = { files: [], embeds: [] }
         if (message.attachments.size > 0) {

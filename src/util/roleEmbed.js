@@ -1,4 +1,4 @@
-import humanizeConstant from "./humanizeConstant.js"
+import { humanizeConstant }  from "@buildtheearth/bot-utils"
 
 export default function embed(role, type, client) {
     let embed = {

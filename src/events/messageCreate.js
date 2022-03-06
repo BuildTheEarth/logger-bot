@@ -4,6 +4,7 @@ export default {
     name: "messageCreate",
     once: false,
     async execute(message, client) {
+        await client.db.put(message.id, JSON.stringify({content: message.content, channel: message.channel.id, user: message.author.id}))
         //not creating a proper command handler for this because it only for super basic commands
         if (message.author.bot) return
         const msg = message.content.toLowerCase()

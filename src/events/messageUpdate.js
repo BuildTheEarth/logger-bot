@@ -2,6 +2,7 @@ export default {
     name: "messageUpdate",
     once: false,
     async execute(oldMessage, newMessage, client) {
+        if (message.partial) await message.fetch().cacth(noop)
         await client.users.fetch(oldMessage.author.id).catch(err => null)
         const messageAuthor = await client.users.cache.get(oldMessage.author.id)
 
