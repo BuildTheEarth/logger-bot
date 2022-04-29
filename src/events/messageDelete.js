@@ -8,7 +8,7 @@ export default {
         //if the message has an attachment write the file to a buffer
         let messageLDB = undefined
         try {
-            messageLDB = JSON.parse(await client.db.get(message.id))
+            messageLDB = JSON.parse(await client.db.get(message.id).catch(noop))
         } catch (e) {
             console.log(e)
         }

@@ -1,0 +1,17 @@
+version: "1.0"
+
+services:
+  main-bot:
+    container_name: logger-bot
+    image: buildtheearth/logger-bot
+    build: .
+    networks:
+      - bot-network
+    environment:
+        CONFIG_FOLDER: "/etc/buildtheearth/logger-bot/config"
+    volumes:
+      - "${CONFIG_FOLDER}:/etc/buildtheearth/logger-bot/config"
+      
+networks:
+  bot-network:
+    external: true

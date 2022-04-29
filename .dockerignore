@@ -1,0 +1,14 @@
+# Install Data
+node_modules
+
+# Build
+dist/
+
+# Logs
+logs/
+
+#Webserver stuff
+images/
+
+#Docker
+docker_env/
