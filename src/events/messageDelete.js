@@ -13,8 +13,10 @@ export default {
             console.log(e)
         }
         if ( message.partial && !messageLDB) return
-        message.content = messageLDB.content
-        message.author = {id: messageLDB.user}
+        if (messageLDB) {
+            message.content = messageLDB.content
+            message.author = {id: messageLDB.user}
+        }
         let files = []
         let content = { files: [], embeds: [] }
         if (message.attachments.size > 0) {
