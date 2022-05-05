@@ -1,4 +1,6 @@
 import memberEmbed from "../util/memberEmbed.js"
+import getLogGuild from "../util/getLogGuild.js"
+//@ts-check
 
 export default {
     name: "guildMemberAdd",

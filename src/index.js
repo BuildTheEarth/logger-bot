@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+//@ts-check
 import createLogger from "@buildtheearth/bot-logger"
 import { Client, Intents } from "discord.js"
 import fs from "fs"
@@ -10,6 +11,7 @@ import { fileURLToPath } from "url"
 import { pathToFileURL } from "url"
 import { dirname } from "path"
 import level from 'level'
+import getLogGuild from "./util/getLogGuild.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -49,8 +51,12 @@ async function main() {
                     event.default.execute(...args, client)
                 )
             } else {
-                client.on(event.default.name, (...args) =>
-                    event.default.execute(...args, client)
+                client.on(event.default.name, (...args) => {
+                        const guildId = args[0]?.guild?.id || args[0]?.first()?.guild?.id || args[0]?.id
+                        if (guildId == getLogGuild(client)) {
+                            event.default.execute(...args, client)
+                        }
+                    }
                 )
             }
         }
