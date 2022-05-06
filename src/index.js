@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 //@ts-check
 import createLogger from "@buildtheearth/bot-logger"
-import { Client, Intents } from "discord.js"
+import Discord, { Client, Intents } from "discord.js"
 import fs from "fs"
 import config from "../config/config.json" assert { type: "json" }
 import log from "./util/log.js"
@@ -53,6 +53,9 @@ async function main() {
             } else {
                 client.on(event.default.name, (...args) => {
                         const guildId = args[0]?.guild?.id || args[0]?.first()?.guild?.id || args[0]?.id
+                        if (args[0] instanceof Discord.Message) {
+                            if (Object.values(client.config.channels).includes(args[0].channel.id)) {return}
+                        }
                         if (guildId == getLogGuild(client)) {
                             event.default.execute(...args, client)
                         }

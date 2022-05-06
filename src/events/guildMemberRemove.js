@@ -6,6 +6,6 @@ export default {
     async execute(member, client) {
         console.log(member.partial)
         const embed = await memberEmbed(member, "Remove", client)
-        client.log({ embeds: [embed] }, "mainLog", client)
+        client.log({ embeds: [embed] }, "joinLog", client)
     }
 }

@@ -3,7 +3,8 @@
     "token": "",
     "channels": {
         "messageLog": "",
-        "mainLog": ""
+        "mainLog": "",
+        "joinLog": ""
     },
     "colors": {
         "join": "#1EAD2F",
