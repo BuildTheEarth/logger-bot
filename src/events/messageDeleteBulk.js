@@ -1,10 +1,62 @@
+//@ts-check
+
+import { noop } from "@buildtheearth/bot-utils"
+import Discord, { Collection } from "discord.js"
+import discordTranscripts from "discord-html-transcripts"
+
 export default {
     name: "messageDeleteBulk",
     once: false,
-    execute(messages, client) {
-        client.logger.info("lol")
-        //this one might be a bit more complicated.
-        //The thing is we could create a log for each mesage that was deleted but thats a lot of logs and we dont want to do that. so we need to create a log for all messages that were deleted in bulk but to do that we probably need to do it kinda like helpbot does where it creates a file of the messages.
-        //no need to tackle this rn
+    /**
+     * @param {Discord.Collection<string, Discord.Message>} messages
+     * @param {Discord.Client} client
+     */
+    async execute(messages, client) {
+        const newMessages = new Collection()
+        let channel;
+        for (const message of messages.values()) {
+            try {
+                if (!channel) {
+                    channel = await client.channels.fetch(message.channelId)
+                }
+                const messageLDB = JSON.parse(await client.db.get(message.id).catch(noop))
+                if (messageLDB) {
+                    message.content = messageLDB.content
+                    // @ts-ignore
+                    message.author = await client.users.fetch(messageLDB.user).catch(noop)
+                    if (!message.author) {
+                        // @ts-ignore
+                        message.author = {
+                            id: messageLDB.user,
+                            tag: "Deleted User#0000",
+                            avatarURL: () => "https://cdn.discordapp.com/embed/avatars/0.png"
+                        }
+                    }
+                }
+            } catch (e) {
+                console.log(e)
+            }
+            newMessages.set(message.id, message)
+        }
+        let transcript;
+        try {
+            // @ts-ignore
+            transcript = discordTranscripts.generateFromMessages(messages, channel)
+        } catch (e) {
+            console.log(e)
+        }
+        if (transcript) {
+            const content = {
+                files: [transcript],
+                embeds: [
+                    {
+                        color: client.hexToRGB(client.config.colors.messages.delete),
+                        title: "New Purged Messages",
+                        description: `Purged ${messages.size} messages in <#${channel.id}>, transcript attached above, download it and open it in any browser, click on any users avatar to get the message information.`
+                    }
+                ]
+            }
+            await client.log(content, "messageLog", client)
+        }
     }
 }
