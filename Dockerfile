@@ -3,11 +3,9 @@ FROM node:16-alpine3.15
 
 WORKDIR /etc/buildtheearth/logger-bot
 
-COPY package*.json ./
+COPY . ./
 
 RUN npm install
-
-COPY . ./
 
 ENV NODE_ENV production
 
