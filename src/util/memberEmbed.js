@@ -1,6 +1,6 @@
 import Discord from "discord.js"
-import { humanizeConstant }  from "@buildtheearth/bot-utils"
-import { formatTimestamp }  from "@buildtheearth/bot-utils"
+import { humanizeConstant } from "@buildtheearth/bot-utils"
+import { formatTimestamp } from "@buildtheearth/bot-utils"
 import userFlags from "../../config/extensions/userFlags.json" assert { type: "json" }
 
 export default function embed(member, type, client) {
@@ -69,16 +69,23 @@ export default function embed(member, type, client) {
     })
 
     if (member.user.flags) {
-        let feildName = "Acknowledgements"
-        const flagArr = member.user.flags
-            .toArray()
+        let fieldName = "Acknowledgements"
+        const flagArr = member.user.flags.toArray()
         const flags = flagArr
             .map(flag => userFlags[flag] || humanizeConstant(flag))
             .join(", ")
-        if (flagArr.includes("DISCORD_EMPLOYEE"||"PARTNERED_SERVER_OWNER"||"HYPESQUAD_EVENTS"||"DISCORD_CERTIFIED_MODERATOR") {
-            feildName += "\n(User Has a Notable Flag)"
-            }
-        if (flags) embed.fields.push({ name: feildName, value: flags })
+
+        console.log(flagArr)
+
+        if (
+            flagArr.includes("DISCORD_CERTIFIED_MODERATOR") ||
+            flagArr.includes("DISCORD_EMPLOYEE") ||
+            flagArr.includes("PARTNERED_SERVER_OWNER") ||
+            flagArr.includes("HYPESQUAD_EVENTS")
+        ) {
+            fieldName += "\n(User Has a Notable Flag)"
+        }
+        if (flags) embed.fields.push({ name: fieldName, value: flags })
     }
     return embed
 }
