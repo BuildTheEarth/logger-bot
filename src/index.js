@@ -10,7 +10,7 @@ import path from "path"
 import { fileURLToPath } from "url"
 import { pathToFileURL } from "url"
 import { dirname } from "path"
-import level from 'level'
+import level from "level"
 import getLogGuild from "./util/getLogGuild.js"
 
 const __filename = fileURLToPath(import.meta.url)
@@ -40,11 +40,10 @@ async function main() {
         .filter(file => file.endsWith(".js"))
 
     for (const file of eventFiles) {
-        
         const event = await import(
             pathToFileURL(path.join(__dirname, `./events/${file}`)).toString()
         )
-        
+
         if (client.config.events[event.default.name]) {
             if (event.default.once) {
                 client.once(event.default.name, (...args) =>
@@ -52,15 +51,21 @@ async function main() {
                 )
             } else {
                 client.on(event.default.name, (...args) => {
-                        const guildId = args[0]?.guild?.id || args[0]?.first()?.guild?.id || args[0]?.id
-                        if (args[0] instanceof Discord.Message) {
-                            if (Object.values(client.config.channels).includes(args[0].channel.id)) {return}
-                        }
-                        if (guildId == getLogGuild(client)) {
-                            event.default.execute(...args, client)
+                    const guildId =
+                        args[0]?.guild?.id || args[0]?.first()?.guild?.id || args[0]?.id
+                    if (args[0] instanceof Discord.Message) {
+                        if (
+                            Object.values(client.config.channels).includes(
+                                args[0].channel.id
+                            )
+                        ) {
+                            return
                         }
                     }
-                )
+                    if (guildId == getLogGuild(client)) {
+                        event.default.execute(...args, client)
+                    }
+                })
             }
         }
     }
