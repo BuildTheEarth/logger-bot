@@ -99,17 +99,17 @@ export default function embed(role, oldRole, type, client) {
 const diff = function (oldA, newA) {
     let removed = oldA.filter(e => !newA.includes(e))
     let added = newA.filter(e => !oldA.includes(e))
-    if (!removed && !added) {
+    if (removed.length && added.length) {
         return null
     }
 
     let diffS = "```diff"
-    removed.forEach(e => (diffS += `\n-${e}`))
-    added.forEach(e => (diffS += `\n+${e}`))
+    removed.forEach(e => (diffS += `\n--${e}`))
+    added.forEach(e => (diffS += `\n++${e}`))
     diffS += "\n```"
     return diffS
 }
 let diffString = function (oldString, newString) {
     if (oldString === newString) return null
-    return `\`\`\`diff\n-${oldString}\n+${newString}\n\`\`\``
+    return `\`\`\`diff\n--${oldString}\n++${newString}\n\`\`\``
 }
