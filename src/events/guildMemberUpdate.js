@@ -2,36 +2,55 @@ export default {
     name: "guildMemberUpdate",
     once: false,
     execute(oldMember, newMember, client) {
-        let embed = {
-            color: client.config.colors.memberUpdate,
-            title: `Member Updated (${newMember.user.tag})`,
-            thumbnail: {
-                url: newMember.user.avatarURL({ size: 64, format: "png", dynamic: true })
-            },
-            fields: [],
-            footer: {
-                text: `Member ID: ${newMember.id}`
-            },
-            timestamp: newMember.user.createdAt
-        }
-        const push = function (name, inline, diff) {
-            if (diff) {
-                embed.fields.push({
-                    name,
-                    value: diff,
-                    inline
-                })
+        if (oldMember.partial || newMember.patrial)
+            client.logger.warn("Patrial GuildMember Object")
+        client.logger.info(`guildMemberUpdate: ${newMember.user.tag} (${newMember.id})`)
+
+        let embed = {}
+        try {
+            embed = {
+                color: client.config.colors.memberUpdate,
+                title: `Member Updated (${newMember.user.tag})`,
+                thumbnail: {
+                    url: newMember.user.avatarURL({
+                        size: 64,
+                        format: "png",
+                        dynamic: true
+                    })
+                },
+                fields: [],
+                footer: {
+                    text: `Member ID: ${newMember.id}`
+                },
+                timestamp: newMember.user.createdAt
+            }
+            const push = function (name, inline, diff) {
+                if (diff) {
+                    embed.fields.push({
+                        name,
+                        value: diff,
+                        inline
+                    })
+                }
+            }
+            push("Nickname", true, diffString(oldMember.nickname, newMember.nickname))
+            push(
+                "Roles",
+                false,
+                diff(
+                    oldMember.roles.cache.map(e => `${e.name} (${e.id})`),
+                    newMember.roles.cache.map(e => `${e.name} (${e.id})`)
+                )
+            )
+        } catch {
+            err => {
+                client.logger.error(err.stack)
+                embed = {
+                    title: "Error",
+                    description: "An unkown error occured, please contact a bot developer"
+                }
             }
         }
-        push("Nickname", true, diffString(oldMember.nickname, newMember.nickname))
-        push(
-            "Roles",
-            false,
-            diff(
-                oldMember.roles.cache.map(e => `${e.name} (${e.id})`),
-                newMember.roles.cache.map(e => `${e.name} (${e.id})`)
-            )
-        )
 
         client.log({ embeds: [embed] }, "mainLog", client)
     }

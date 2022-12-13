@@ -12,8 +12,10 @@ export default {
      * @param {Discord.Client} client
      */
     async execute(messages, client) {
+        client.logger.info(`messageDelete Bulk: ${messages.size} messages deleted`)
+
         const newMessages = new Collection()
-        let channel;
+        let channel
         for (const message of messages.values()) {
             try {
                 if (!channel) {
@@ -29,21 +31,22 @@ export default {
                         message.author = {
                             id: messageLDB.user,
                             tag: "Deleted User#0000",
-                            avatarURL: () => "https://cdn.discordapp.com/embed/avatars/0.png"
+                            avatarURL: () =>
+                                "https://cdn.discordapp.com/embed/avatars/0.png"
                         }
                     }
                 }
-            } catch (e) {
-                console.log(e)
+            } catch (err) {
+                client.logger.error(err)
             }
             newMessages.set(message.id, message)
         }
-        let transcript;
+        let transcript
         try {
             // @ts-ignore
             transcript = discordTranscripts.generateFromMessages(messages, channel)
-        } catch (e) {
-            console.log(e)
+        } catch (err) {
+            client.logger.error(err)
         }
         if (transcript) {
             const content = {

@@ -6,7 +6,9 @@ export default {
     name: "guildMemberAdd",
     once: false,
     async execute(member, client) {
-        console.log(member.partial)
+        if (member.partial) client.logger.warn("Patrial guildMember Object")
+        client.logger.info(`guildMemberAdd: ${member.user.tag} (${member.id})`)
+
         const embed = await memberEmbed(member, "Add", client)
         client.log({ embeds: [embed] }, "joinLog", client)
     }

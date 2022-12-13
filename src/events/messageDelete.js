@@ -5,17 +5,21 @@ export default {
     name: "messageDelete",
     once: false,
     async execute(message, client) {
+        client.logger.info(`messageDelete: ${message.author.tag} (${message.author.id})`)
         //if the message has an attachment write the file to a buffer
         let messageLDB = undefined
         try {
             messageLDB = JSON.parse(await client.db.get(message.id).catch(noop))
-        } catch (e) {
-            console.log(e)
+        } catch (err) {
+            client.logger.error(err.stack)
         }
-        if ( message.partial && !messageLDB) return
+        if (message.partial && !messageLDB)
+            return client.logger.warn(
+                `Message object was partial and not found in LDB. Message not logged`
+            )
         if (messageLDB) {
             message.content = messageLDB.content
-            message.author = {id: messageLDB.user}
+            message.author = { id: messageLDB.user }
         }
         let files = []
         let content = { files: [], embeds: [] }
@@ -35,7 +39,6 @@ export default {
                     name: urls[i].name,
                     extension: urls[i].name.match(/\.[0-9a-z]+$/i)[0]
                 })
-                console.log(files)
             }
         }
 

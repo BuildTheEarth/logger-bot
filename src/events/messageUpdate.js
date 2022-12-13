@@ -7,29 +7,46 @@ export default {
     name: "messageUpdate",
     once: false,
     async execute(oldMessage, newMessage, client) {
+        client.logger.info(
+            `messageUpdate: ${newMessage.author.tag} (${newMessage.author.id})`
+        )
+
         if (newMessage.partial) await newMessage.fetch().catch(noop)
 
         let messageLDB = undefined
         try {
             messageLDB = JSON.parse(await client.db.get(oldMessage.id).catch(noop))
-        } catch (e) {
-            console.log(e)
+        } catch (err) {
+            client.logger.error(err.stack)
         }
-        if ( oldMessage.partial && !messageLDB) return
+        if (oldMessage.partial && !messageLDB)
+            return client.logger.warn(
+                `Message object was partial and not found in LDB. Message not logged`
+            )
         if (messageLDB) {
             oldMessage.content = messageLDB.content
-            oldMessage.author = {id: messageLDB.user}
+            oldMessage.author = { id: messageLDB.user }
         }
-        
 
         await client.users.fetch(newMessage.author.id).catch(err => null)
         const messageAuthor = await client.users.cache.get(newMessage.author.id)
 
         try {
-            client.db.del(newMessage.id).catch(noop).then(async () => {
-                await client.db.put(newMessage.id, JSON.stringify({content: newMessage.content, channel: newMessage.channel.id, user: newMessage.author.id})).catch(noop)
-            })
-            
+            client.db
+                .del(newMessage.id)
+                .catch(noop)
+                .then(async () => {
+                    await client.db
+                        .put(
+                            newMessage.id,
+                            JSON.stringify({
+                                content: newMessage.content,
+                                channel: newMessage.channel.id,
+                                user: newMessage.author.id
+                            })
+                        )
+                        .catch(noop)
+                })
         } catch (e) {
             noop()
         }
@@ -38,17 +55,17 @@ export default {
             {
                 color: client.hexToRGB(client.config.colors.messages.edit),
                 title: "New Edited Message (Before)",
-                
+
                 description: diffParser(oldMessage.content),
                 author: {
                     name: messageAuthor.tag,
                     icon_url: messageAuthor.avatarURL()
-                },
+                }
             },
             {
                 color: client.hexToRGB(client.config.colors.messages.edit),
                 title: "New Edited Message (After)",
-                
+
                 description: diffParser(newMessage.content),
                 timestamp: new Date(newMessage.createdTimestamp),
                 footer: {
@@ -65,7 +82,7 @@ export default {
                         value: `<#${newMessage.channelId}>`,
                         inline: true
                     }
-                ],
+                ]
             }
         ]
 
