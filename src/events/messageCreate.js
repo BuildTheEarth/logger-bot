@@ -2,6 +2,13 @@
 import { noop } from "@buildtheearth/bot-utils"
 import prettyMs from "pretty-ms"
 
+Object.defineProperty(String.prototype, 'cap', {
+  value: function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+  },
+  enumerable: false
+});
+
 export default {
     name: "messageCreate",
     once: false,
@@ -26,7 +33,7 @@ export default {
         if (/[a-z]?ing/.test(command)) {
             const embed = {
                 color: client.config.colors.join,
-                title: `${command.replace(/ing$/g, "")}ong`,
+                title: `${command.replace(/ing$/g, "").cap()}ong`,
                 description: `🏓Latency is ${Math.round(
                     client.ws.ping
                 )} ms.\nUptime: ${prettyMs(client.uptime)}`,
