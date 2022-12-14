@@ -26,7 +26,7 @@ export default {
         if (/[a-z]?ing/.test(command)) {
             const embed = {
                 color: client.config.colors.join,
-                title: `${command.charAt(0).toUpperCase()}ong`,
+                title: `${command.replace(/ing$/g, "")}ong`,
                 description: `🏓Latency is ${Math.round(
                     client.ws.ping
                 )} ms.\nUptime: ${prettyMs(client.uptime)}`,
