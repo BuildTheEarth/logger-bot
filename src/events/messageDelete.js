@@ -48,6 +48,7 @@ export default {
         content.embeds.push({
             color: client.hexToRGB(client.config.colors.messages.delete),
             title: "New Deleted Message",
+            url: `https://discord.com/channels/${message.guildId}/${message.channelId}/${message.id}`,
             author: {
                 name: messageAuthor.tag,
                 icon_url: messageAuthor.avatarURL()
@@ -62,11 +63,6 @@ export default {
                 {
                     name: "Channel",
                     value: `<#${message.channelId}>`,
-                    inline: true
-                },
-                {
-                    name: "** **",
-                    value: `[Message Link](https://discord.com/channels/${message.guildId}/${message.channelId}/${message.id})`,
                     inline: true
                 }
             ],
