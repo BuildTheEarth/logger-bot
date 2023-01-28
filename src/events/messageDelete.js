@@ -63,6 +63,11 @@ export default {
                     name: "Channel",
                     value: `<#${message.channelId}>`,
                     inline: true
+                },
+                {
+                    name: "** **",
+                    value: `[Message Link](https://discord.com/channels/${message.guildId}/${message.channelId}/${message.id})`,
+                    inline: true
                 }
             ],
             timestamp: new Date(message.createdTimestamp),

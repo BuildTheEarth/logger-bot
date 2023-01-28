@@ -81,6 +81,11 @@ export default {
                         name: "Channel",
                         value: `<#${newMessage.channelId}>`,
                         inline: true
+                    },
+                    {
+                        name: "** **",
+                        value: `[Message Link](https://discord.com/channels/${newMessage.guildId}/${newMessage.channelId}/${newMessage.id})`,
+                        inline: true
                     }
                 ]
             }
