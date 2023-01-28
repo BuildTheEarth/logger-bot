@@ -65,6 +65,7 @@ export default {
             {
                 color: client.hexToRGB(client.config.colors.messages.edit),
                 title: "New Edited Message (After)",
+                url: `https://discord.com/channels/${newMessage.guildId}/${newMessage.channelId}/${newMessage.id}`,
 
                 description: diffParser(newMessage.content),
                 timestamp: new Date(newMessage.createdTimestamp),
@@ -80,11 +81,6 @@ export default {
                     {
                         name: "Channel",
                         value: `<#${newMessage.channelId}>`,
-                        inline: true
-                    },
-                    {
-                        name: "** **",
-                        value: `[Message Link](https://discord.com/channels/${newMessage.guildId}/${newMessage.channelId}/${newMessage.id})`,
                         inline: true
                     }
                 ]
