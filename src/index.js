@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 //@ts-check
 import createLogger from "@buildtheearth/bot-logger"
-import Discord, { Client, Intents } from "discord.js"
+import Discord, { Client, GatewayIntentBits, Partials } from "discord.js"
 import fs from "fs"
 import config from "../config/config.json" assert { type: "json" }
 import log from "./util/log.js"
@@ -18,17 +18,18 @@ const __dirname = dirname(__filename)
 
 const client = new Client({
     intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_BANS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildModeration,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.MessageContent
     ],
-    partials: ["MESSAGE", "CHANNEL", "REACTION"]
+    partials: [Partials.Message, Partials.Channel, Partials.Reaction]
 })
 client.log = log
 client.config = config
-client.hexToRGB = hexToRGB
+client.hexToRGB = (e) => Number(e.replace("#", "0x"))
 client.logger = createLogger({ filePath: path.join(__dirname, "../logs/") })
 client.logger.info("Starting bot... Please stand by.")
 client.db = level(path.join(__dirname, "../config/db"))

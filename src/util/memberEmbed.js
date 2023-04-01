@@ -25,7 +25,7 @@ export default function embed(member, type, client) {
             fields: [
                 {
                     name: "Tag",
-                    value: Discord.Util.escapeMarkdown(member.user.tag),
+                    value: Discord.escapeMarkdown(member.user.tag),
                     inline: true
                 },
                 {
@@ -39,7 +39,7 @@ export default function embed(member, type, client) {
         if (member.nickname)
             embed.fields.push({
                 name: "Nick",
-                value: Discord.Util.escapeMarkdown(member.nickname),
+                value: Discord.escapeMarkdown(member.nickname),
                 inline: true
             })
 
