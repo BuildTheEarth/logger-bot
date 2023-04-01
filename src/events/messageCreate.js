@@ -32,7 +32,7 @@ export default {
 
         if (/[a-z]?ing/.test(command)) {
             const embed = {
-                color: client.config.colors.join,
+                color: client.hexToRGB(client.config.colors.join),
                 title: `${command.replace(/ing$/g, "").cap()}ong`,
                 description: `🏓Latency is ${Math.round(
                     client.ws.ping
