@@ -2,12 +2,12 @@
 import { noop } from "@buildtheearth/bot-utils"
 import prettyMs from "pretty-ms"
 
-Object.defineProperty(String.prototype, 'cap', {
-  value: function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-  },
-  enumerable: false
-});
+Object.defineProperty(String.prototype, "cap", {
+    value: function () {
+        return this.charAt(0).toUpperCase() + this.slice(1)
+    },
+    enumerable: false
+})
 
 export default {
     name: "messageCreate",

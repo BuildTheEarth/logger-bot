@@ -104,7 +104,7 @@ export default function embed(role, oldRole, type, client) {
             client.logger.error(err.stack)
             return {
                 title: "Error",
-                description: "An unkown error occured, please contact a bot developer"
+                description: "An unknown error occurred, please contact a bot developer"
             }
         }
     }

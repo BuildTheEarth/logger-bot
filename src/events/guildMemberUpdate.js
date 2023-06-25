@@ -2,14 +2,14 @@ export default {
     name: "guildMemberUpdate",
     once: false,
     execute(oldMember, newMember, client) {
-        if (oldMember.partial || newMember.patrial)
-            client.logger.warn("Patrial GuildMember Object")
+        if (oldMember.partial || newMember.partial)
+            client.logger.warn("Partial GuildMember Object")
         client.logger.info(`guildMemberUpdate: ${newMember.user.tag} (${newMember.id})`)
 
         let embed = {}
         try {
             embed = {
-                color: client.config.colors.memberUpdate,
+                color: client.hexToRGB(client.config.colors.memberUpdate),
                 title: `Member Updated (${newMember.user.tag})`,
                 thumbnail: {
                     url: newMember.user.avatarURL({
@@ -47,7 +47,8 @@ export default {
                 client.logger.error(err.stack)
                 embed = {
                     title: "Error",
-                    description: "An unkown error occured, please contact a bot developer"
+                    description:
+                        "An unknown error occurred, please contact a bot developer"
                 }
             }
         }

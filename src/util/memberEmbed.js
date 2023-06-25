@@ -8,11 +8,11 @@ export default function embed(member, type, client) {
         let color
         let title
         if (type === "Remove") {
-            color = client.config.colors.leave
+            color = client.hexToRGB(client.config.colors.leave)
             title = "User Left The Server"
         }
         if (type === "Add") {
-            color = client.config.colors.join
+            color = client.hexToRGB(client.config.colors.join)
             title = "User Joined The Server"
         }
 
@@ -95,7 +95,7 @@ export default function embed(member, type, client) {
             client.logger.error(err.stack)
             return {
                 title: "Error",
-                description: "An unkown error occured, please contact a bot developer"
+                description: "An unknown error occurred, please contact a bot developer"
             }
         }
     }

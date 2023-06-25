@@ -4,7 +4,7 @@ export default {
     name: "guildMemberRemove",
     once: false,
     async execute(member, client) {
-        if (member.partial) client.logger.warn("Patrial GuildMember Object")
+        if (member.partial) client.logger.warn("Partial guildMember Object")
         client.logger.info(`guildMemberRemove: ${member.user.tag} (${member.id})`)
 
         const embed = await memberEmbed(member, "Remove", client)
