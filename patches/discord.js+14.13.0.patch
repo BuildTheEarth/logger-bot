@@ -1,18 +1,17 @@
 diff --git a/node_modules/discord.js/typings/index.d.ts b/node_modules/discord.js/typings/index.d.ts
-index 7059ba0..d0158a3 100644
+index fda9b4c..be34866 100644
 --- a/node_modules/discord.js/typings/index.d.ts
 +++ b/node_modules/discord.js/typings/index.d.ts
-@@ -932,6 +932,13 @@ export class Client<Ready extends boolean = boolean> extends BaseClient {
-   private _validateOptions(options: ClientOptions): void;
-   private get _censoredToken(): string | null;
- 
+@@ -982,6 +982,12 @@ export class Client<Ready extends boolean = boolean> extends BaseClient {
+   public login(token?: string): Promise<string>;
+   public isReady(): this is Client<true>;
+   public toJSON(): unknown;
 +  log: (content: any, logType: any, client: any) => Promise<any>;
 +  config: { prefix: string; token: string; channels: { messageLog: string; mainLog: string; joinLog: string;}; colors: { join: string; leave: string; memberUpdate: string; roleCreate: string; roleDelete: string; roleUpdate: string; messages: { edit: string; delete: string; bulkDelete: string; reactionAdd: string; reactionRemove: string; }; }; events: { guildMemberAdd: boolean; guildMemberRemove: boolean; guildMemberUpdate: boolean; messageCreate: boolean; messageDelete: boolean; messageDeleteBulk: boolean; messageReactionAdd: boolean; messageReactionDelete: boolean; messageUpdate: boolean; ready: boolean; roleCreate: boolean; roleDelete: boolean; roleUpdate: boolean; }; };
 +  hexToRGB: (hexCode: string) => readonly number;
 +  logger: any;
 +  db: any;
 +  logGuild: number
-+
-   public application: If<Ready, ClientApplication>;
-   public channels: ChannelManager;
-   public get emojis(): BaseGuildEmojiManager;
+ 
+   public on<K extends keyof ClientEvents>(event: K, listener: (...args: ClientEvents[K]) => Awaitable<void>): this;
+   public on<S extends string | symbol>(

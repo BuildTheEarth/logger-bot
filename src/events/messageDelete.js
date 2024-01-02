@@ -5,7 +5,6 @@ export default {
     name: "messageDelete",
     once: false,
     async execute(message, client) {
-        client.logger.info(`messageDelete: ${message.author.tag} (${message.author.id})`)
         //if the message has an attachment write the file to a buffer
         let messageLDB = undefined
         try {
@@ -44,6 +43,8 @@ export default {
 
         await client.users.fetch(message.author.id).catch(err => null)
         const messageAuthor = await client.users.cache.get(message.author.id)
+
+        client.logger.info(`messageDelete: ${messageAuthor.tag} (${messageAuthor.id})`)
 
         content.embeds.push({
             color: client.hexToRGB(client.config.colors.messages.delete),
