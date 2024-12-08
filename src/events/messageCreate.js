@@ -1,5 +1,5 @@
 //@ts-check
-import { noop } from "@buildtheearth/bot-utils"
+import { noop, truncateString } from "@buildtheearth/bot-utils"
 import prettyMs from "pretty-ms"
 
 Object.defineProperty(String.prototype, "cap", {
@@ -33,7 +33,7 @@ export default {
         if (/[a-z]?ing/.test(command)) {
             const embed = {
                 color: client.hexToRGB(client.config.colors.join),
-                title: `${command.replace(/ing$/g, "").cap()}ong`,
+                title: `${truncateString(command.replace(/ing$/g, "").cap(), 253, "")}ong`,
                 description: `🏓Latency is ${Math.round(
                     client.ws.ping
                 )} ms.\nUptime: ${prettyMs(client.uptime)}`,
