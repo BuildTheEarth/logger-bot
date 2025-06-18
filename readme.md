@@ -1,7 +1,7 @@
 <!-- markdownlint-disable -->
 <div align="center">
 
-<img width="128" src="https://buildtheearth.net/assets/img/site-logo-animated.gif" />
+<img width="128" src="https://github.com/BuildTheEarth/assets/blob/main/images/logos/logo_bot.png?raw=true" />
 
 # Logger Bot
 
@@ -11,10 +11,6 @@ _The message logger for the BuildTheEarth Discord server._
 
 </div>
 <!-- markdownlint-restore -->
-
--   [Bot](#Bot)
--   [BuildTheEarth](#BuildTheEarth)
--   [License](#License)
 
 ## Bot
 
