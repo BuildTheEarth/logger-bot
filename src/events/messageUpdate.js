@@ -28,6 +28,8 @@ export default {
             oldMessage.author = { id: messageLDB.user }
         }
 
+        if (newMessage.author?.bot) return
+
         await client.users.fetch(newMessage.author.id).catch(err => null)
         const messageAuthor = await client.users.cache.get(newMessage.author.id)
 
@@ -50,6 +52,8 @@ export default {
         } catch (e) {
             noop()
         }
+
+        if (oldMessage.content === newMessage.content) return
 
         const embeds = [
             {
